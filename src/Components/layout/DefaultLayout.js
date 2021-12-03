@@ -2,7 +2,7 @@ import React from 'react'
 import { Fotter } from './partials/Fotter.comp'
 import { Header } from './partials/Header.comp'
 
-export const DefaultLayout = () => {
+export const DefaultLayout = ({children}) => {
     return (
   
             <div className="default-layout">
@@ -10,7 +10,7 @@ export const DefaultLayout = () => {
                 <Header/>
                 </header>
             <main className="main">
-            main Page Content
+            {children}
             </main>
             <footer className="footer"><Fotter/></footer>
             
