@@ -9,8 +9,8 @@ function App() {
     <div className="App">
       {/* <Entery></Entery> */}
       <DefaultLayout>
-        <Dashboard></Dashboard>
-        {/* <AddTicket> </AddTicket> */}
+        {/* <Dashboard></Dashboard> */}
+        <AddTicket> </AddTicket>
       </DefaultLayout>
     </div>
   );
