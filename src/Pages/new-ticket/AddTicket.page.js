@@ -3,40 +3,44 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { AddTicketForm } from '../../Components/add-ticket-form/AddTicketForm.comp'
 import { PageBreadcrumb } from '../../Components/breadcumb/Breadcrumb.comp'
 import { shortText } from '../../util/validation'
-const initialFrmDta = {
+const initialFrmDt = {
     subject: "",
     issueDate: "",
     detail: "",
-}
-const initialfrmErr = {
-    subject: "",
-    issueDate: "",
-    detail: "",
-}
-export const AddTicket = () => {
-
-    const [frmData, setFrmData] = useState(initialFrmDta)
-    const [frmDataError, setfrmDataError] = useState(initialfrmErr)
-    useEffect(() => {}, [frmData])
-    const handleOnChange = (e) =>{
-        const {name, value} = e.target;
-       
-        setFrmData({
-            ...frmData,
-            [name]: value
-        })
-        
+  };
+  const initialFrmError = {
+    subject: false,
+    issueDate: false,
+    detail: false,
+  };
+  export const AddTicket = () => {
+    const [frmData, setFrmData] = useState(initialFrmDt);
+    const [frmDataErro, setFrmDataErro] = useState(initialFrmError);
+    useEffect(() => {}, [frmData, frmDataErro]);
+  
+    const handleOnChange = (e) => {
+      const { name, value } = e.target;
+  
+      setFrmData({
+        ...frmData,
+        [name]: value,
+      });
     };
-    const  handleOnSubmit = async(e) => {
-        e.preventDefault();
-        const isSubjectValid = await shortText(frmData.subject)
-        const isValid = await shortText(frmData.subject)
-        !isValid && setfrmDataError({
-            ...initialfrmErr,
-              subject: isSubjectValid
-        })
-        console.log(`Form Sumbit Information Recived ${frmData}`)
-    }
+  
+    const handleOnSubmit = async (e) => {
+      e.preventDefault();
+  
+      setFrmDataErro(initialFrmError);
+  
+      const isSubjectValid = await shortText(frmData.subject);
+  
+      setFrmDataErro({
+        ...initialFrmError,
+        subject: !isSubjectValid,
+      });
+  
+      console.log("Form submit request received", frmData);
+    };
     return (
         <Container>
         <Row>
@@ -46,13 +50,14 @@ export const AddTicket = () => {
         </Row>   
         <Row>
         <Col>
-        <AddTicketForm handleOnChange={handleOnChange} 
-        frmDt={frmData} 
-        frmDataError={frmDataError} 
-        handleOnSubmit={handleOnSubmit}
-        ></AddTicketForm>
-        </Col>    
-        </Row> 
+          <AddTicketForm
+            handleOnChange={handleOnChange}
+            handleOnSubmit={handleOnSubmit}
+            frmDt={frmData}
+            frmDataErro={frmDataErro}
+          />
+        </Col>
+      </Row> 
         </Container>
 
             
